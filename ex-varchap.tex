@@ -1,0 +1,312 @@
+%%
+%% This is file `ex-varchap.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% varchap.dtx  (with options: `exemple')
+%% 
+%%         Auteur: Sébastien Le Callonnec
+%%                 email: <sebastien@weblogism.com>
+%% 
+%%         Description:
+%%                 Fournit de nouvelles définitions de
+%%                 styles de chapitres.
+%% 
+%%         Version: 1.0c
+%% 
+%%         Modifié le:
+%%                 29 avril 2013
+%%         1.0b.- 23/01/2000.-     Fini base package.
+%%         1.0c.- 28/01/2000.-     Ajouté interfaces preChapitre et postChapitre;
+%%                                 Renommé boitepreChapitre en boiteChapitre
+%%         1.1 .- 29/04/2013.-     Ressorti des cartons
+%% 
+
+
+\documentclass[10pt,a4paper,french]{report}
+\let\ifpdf\undefined
+
+\title{Document test du package \texttt{varchap}}
+\author{Sébastien \sc Le Callonnec}
+\date{\today}
+
+\usepackage{verbatim}
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage[msg]{varchap}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{makeidx}\makeindex
+
+\begin{document}
+\maketitle
+
+\renewcommand{\contentsname}{Sommaire}
+\newcommand{\lestyle}[1]{\textsf{#1}\index{#1@\textsf{#1}}}
+\newcommand{\cmd}[1]{\texttt{\symbol{92}#1}\index{#1@\texttt{\symbol{92}#1}}}
+\newcommand{\cmdx}[1]{\index{#1@\texttt{\symbol{92}#1}}}
+\newcommand{\corps}{%
+Le but de ce document est de fournir une présentation du package
+\texttt{varchap} et de ses différentes possibilités.
+
+Ce chapitre utilise le style <<~\lestyle{\nomstyle}~>>.}
+
+\newcommand{\imprimechapitre}{%
+\chapter{Présentation\\style \nomstyle}
+\corps
+}
+\definecolor{rouge}{rgb}{0.6,0,0}
+\definecolor{tresrouge}{rgb}{1,0,0}
+\definecolor{violet}{rgb}{0.6,0,1}
+
+\tableofcontents
+
+\setlength{\parskip}{6pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+Ce document est le fichier de test du package \texttt{varchap}. C'est
+de plus un manuel d'utilisation de ce package, fournissant des commandes
+à utiliser afin de personnaliser l'apparence des styles.
+
+Pour toute remarque ou question, écrire à~:
+
+\begin{center}
+Sébastien \textsc{Le Callonnec}\\
+email:<\texttt{sebastien@weblogism.com}>
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\imprimechapitre
+
+Ce style est le style par défaut. On peut y accéder en appelant la
+commande \cmd{getEllen}.
+
+\coulNumChap{}
+\imprimechapitre
+
+Changement de couleur du numéro. Ce résultat a été obtenu en utilisant
+la commande~:
+
+\cmd{coulNumChap}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapLong{-40mm}{40mm}{}
+\tailleTitreChap{\Huge\itshape}
+\makeatletter
+\fonteNumChap{\@fontenumer@{T1}{phv}}
+\makeatother
+\imprimechapitre
+
+Ce style a été obtenu à partir du style de base \lestyle{Ellen}, en utilisant les
+commandes~:
+
+\begin{verbatim}
+\chapLong{-40mm}{40mm}{}
+\tailleTitreChap{\Huge\itshape}
+\makeatletter
+\fonteNumChap{\@fontenumer@{T1}{phv}}
+\makeatother
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getChristelle
+\imprimechapitre
+
+Le style \lestyle{Christelle} est accessible par l'option \texttt{christelle}
+ou la commande \cmd{getChristelle}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getAudrey
+\imprimechapitre
+
+L'exemple du style \lestyle{Audrey} montre que l'on peut insérer des filets
+dans l'interstice entre le numéro de chapitre et le titre. Ainsi, la commande
+à utiliser est~:
+
+ \verb+\insereTampon{\vspace{-40mm}\rule{\linewidth}{0.4pt}}+
+
+\noindent pour avoir un filet tel qu'il est sur cette page. Il est ensuite possible de
+jouer avec les écarts entre numéro et filet, entre filet et titre, et la
+longueur/épaisseur du filet. Voire même en mettre plusieurs.
+
+Le style \lestyle{Audrey} est accessible par l'option \texttt{audrey}
+ou la commande \verb+\getAudrey+.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getChristelle
+\coulTitreChap{\color{rouge}}
+\imprimechapitre
+
+Le style \lestyle{Christelle} a été utilisé ici avec un changement de couleur
+du numéro de chapitre. La commande employée est~:
+
+\verb+\coulTitreChap{\color{rouge}}+
+
+\noindent L'interface utilise ainsi le package \texttt{color} afin de changer
+les couleurs. Il faut toutefois définir les couleurs au préalable avec
+\verb+\definecolor+. Par exemple, ici~:
+
+\verb+\definecolor{rouge}{rgb}{0.6,0,0}+
+
+Pour plus d'informations, cf. doc du package \texttt{color}.
+
+Le package \texttt{varchap} définit les couleurs \texttt{grisaille} et
+\texttt{grisaillepale} qui correspondent aux différents tons de gris des
+numéros de chapitre présents dans ce document.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{70pt}{3}
+\imprimechapitre
+
+Le style \lestyle{Undine} utilise le package \texttt{graphicx} pour afficher
+le mot <<~Chapitre~>> le long du numéro de chapitre, en rotation de 90°.
+
+\textbf{Attention!} Cette rotation n'apparaît que dans le \textsc{ps}, et pas
+dans le \textsc{dvi}. Donc, pas de panique si vous ne la voyez pas dans le
+\textsc{dvi}.
+
+Le style \lestyle{Undine} est accessible par l'option \texttt{undine} ou par
+la commande~:
+
+\cmd{getUndine}\verb+{+\textit{longueur}\verb+}{+\textit{nombre}\verb+}+
+
+\noindent où \textit{longueur} est la longueur de l'indentation du titre du
+chapitre, et \textit{nombre} le nombre de ligne de retour en arrière.
+
+Par défaut, l'option \texttt{undine} exécute la commande \verb+\getUndine{0pt}{2}+,
+ce qui donne le résultat de la page suivante.
+
+Ici, la commande est~:
+
+\verb+\getUndine{70pt}{3}+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{0pt}{2}
+\imprimechapitre
+
+\getUndine{0pt}{2}
+\renewcommand{\chaptername}{Quelque chose}
+\imprimechapitre
+\renewcommand{\chaptername}{Chapitre}
+
+Renommage de <<~Chapitre~>> en <<~Quelque chose~>> par~:
+
+\verb+\renewcommand{\chaptername}{Quelque chose}+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{0pt}{2}
+\coulNumChap{}
+\coulTitreChap{\color{violet}}
+\imprimechapitre
+
+Une nouvelle fois le style \lestyle{Undine}. Cette fois, on passe à un
+numéro de chapitre en noir, et à un titre en violet. Le code~:
+
+\begin{verbatim}
+\getUndine{0pt}{2}
+\definecolor{violet}{rgb}{0.6,0,1}
+\coulNumChap{}
+\coulTitreChap{\color{violet}}
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getLisbeth
+\imprimechapitre
+
+Le style \lestyle{lisbeth} centre tout et fait se chevaucher le numéro
+et le titre. Tout ça est modulable grâce à \cmd{intersticeskip}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{0pt}{2}
+\chapter{Et maintenant un long titre de chapitre pour voir}
+\corps
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{0pt}{2}
+\chapter*{Version étoilée}
+\corps
+
+La version étoilée de \verb+\chapter+,\cmd{chapter*}, donne des choses pas trop belles.
+Il faut alors manipuler les distances pour arranger les choses.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getClaudia
+\imprimechapitre
+
+Le style \lestyle{Claudia} utilise lui aussi le <<~tampon~>> pour mettre
+l'étoile et les filets. Vous pouvez redéfinir \verb+\monetoile+ pour obtenir
+un autre symbole (par exemple
+
+\verb+\renewcommand{\monetoile}{$\spadesuit$}+
+
+\noindent me vient
+à l'esprit), ou tout simplement redéfinir \cmd{insereTampon} pour complètement
+changer.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getUndine{0pt}{2}
+\preChapitre{\vspace*{-3cm}%
+{\raggedleft{\itshape{%
+L'\'Eternité, ce sera peut-être long,\\
+mais on n'aura qu'à couper à la moitié.}}\\[1.2\baselineskip]
+-- Un sage\par}%
+}
+\imprimechapitre
+
+Cette fois, on remplit le \cmd{prechapitre} avec une citation. La mise
+en page est à étudier à partir du code suivant~:
+
+\begin{verbatim}
+\preChapitre{\vspace*{-3cm}%
+{\raggedleft{\itshape{%
+L'\'Eternité, ce sera peut-être long,\\
+mais on n'aura qu'à couper à la moitié.}}\\[1.2\baselineskip]
+-- Un sage\par}%
+}
+\end{verbatim}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getSylvia
+\imprimechapitre
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\getClaudia
+\insereTampon{}
+\makeatletter
+\renewcommand{\@chapitrenom}{\color{tresrouge}\MakeUppercase{\chaptername}}
+\makeatother
+\coulTitreChap{\color{tresrouge}}
+\coulNumChap{\color{tresrouge}}
+\chapLong{-2cm}{}{}
+\renewcommand{\prechapitre}{%
+\boiteChapitre{5cm}{7cm}{-4cm}{
+  \typeout{Ô, le bo dessin^^J%
+  Ich bin ein Bild.}%
+  \parbox{5cm}{\scriptsize\textbf{Ô, le bo dessin\\Ich bin ein Bild.}}%
+}}
+\imprimechapitre
+
+Pour finir, on remplit notre boîte du \cmd{prechapitre} par une image \textsc{eps}
+ou \textsc{jpg} selon que  l'on fasse un document \textsc{pdf} ou PostScript. Le code~:
+
+\begin{verbatim}
+\getClaudia
+\insereTampon{}
+\makeatletter
+\renewcommand{\@chapitrenom}{\color{tresrouge}%
+\MakeUppercase{\chaptername}}
+\makeatother
+\coulTitreChap{\color{tresrouge}}
+\coulNumChap{\color{tresrouge}}
+\chapLong{-2cm}{}{}
+\preChapitre{%
+\boiteChapitre{5cm}{7cm}{-4cm}{
+\includegraphics[width=12cm]{image.png}}
+\end{verbatim}
+
+\printindex
+\end{document}
+\endinput
+%%
+%% End of file `ex-varchap.tex'.

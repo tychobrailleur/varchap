@@ -1,0 +1,60 @@
+
+\def\creerStyle{\@ifnextchar[\creer@style{\creer@style[]}}
+\def\creer@style[#1]#2#3#4{%
+\def\firstlettre##1##2\relax{##1}%
+\edef\next{\def\noexpand\firstlettre{\firstlettre #2\relax}}%
+\uppercase\expandafter{\next}%
+\def\suitelettre##1##2\relax{##2}%
+\expandafter\gdef\csname get\firstlettre\suitelettre#2\relax\endcsname{%
+ #3%
+ \nomStyle{#2}%
+ #4\setkeys{v@rch@pkey}{#1}}
+ \DeclareOption{#2}{\AtBeginDocument{%
+\expandafter\csname get\firstlettre\suitelettre#2\relax\endcsname}}}
+
+
+%%% Definition des cles
+\define@key{v@rch@pkey}{coulNumChap}{\coulNumChap{\color{#1}}\relax}
+\define@key{v@rch@pkey}{tailleNumChap}{\tailleNumChap{#1}\relax}
+\define@key{v@rch@pkey}{fontNumChap}{\fontNumChap{#1}\relax}
+\define@key{v@rch@pkey}{selectNumChap}[true]{\tailleNumChap{\selectfont}\relax}
+\define@key{v@rch@pkey}{MEPNumChap}{\MEPNumChap{#1}\relax}
+
+\define@key{v@rch@pkey}{arabeNumChap}[true]{\arabeNumChap}
+\define@key{v@rch@pkey}{romainNumChap}[true]{\romainNumChap}
+
+\define@key{v@rch@pkey}{chapitreNom}[true]{\chapitreNom\relax}
+\define@key{v@rch@pkey}{pasChapitreNom}[true]{\pasChapitreNom\relax}
+
+\define@key{v@rch@pkey}{coulTitreChap}{\coulTitreChap{\color{#1}}\relax}
+\define@key{v@rch@pkey}{tailleTitreChap}{\tailleTitreChap{#1}\relax}
+\define@key{v@rch@pkey}{fontTitreChap}{\fontTitreChap{#1}\relax}
+\define@key{v@rch@pkey}{selectTitreChap}[true]{\tailleTitreChap{\selectfont}\relax}
+\define@key{v@rch@pkey}{MEPTitreChap}{\MEPTitreChap{#1}\relax}
+
+\define@key{v@rch@pkey}{MEPuni}{\MEPuni{#1}\relax}
+
+\define@key{v@rch@pkey}{avantChapSkip}{\setlength{\avantchapitreskip}{#1}\relax}
+\define@key{v@rch@pkey}{apresChapSkip}{\setlength{\apreschapitreskip}{#1}\relax}
+\define@key{v@rch@pkey}{intersticeSkip}{\setlength{\intersticeskip}{#1}\relax}
+
+
+\DeclareOption{msg}{\@stylemessagetrue}
+\DeclareOption{christelle}{\AtBeginDocument{\getChristelle}}
+\DeclareOption{ellen}{\AtBeginDocument{\getEllen}}
+\DeclareOption{audrey}{\AtBeginDocument{\getAudrey}}
+\DeclareOption{claudia}{\AtBeginDocument{\getClaudia}}
+\DeclareOption{undine}{\AtBeginDocument{\getUndine{0pt}{2}}}
+\DeclareOption{lisbeth}{\AtBeginDocument{\getLisbeth}}
+
+\InputIfFileExists{varchap.cfg}\relax
+
+
+%%%%%%%%%%%%%%
+
+
+- Todo: remettre le code ci-dessus dans le vrai .dtx
+- Remettre sylvia en option de ex-varchap.tex?
+- Remettre à jour l'*image*
+- Exemples tirés de vrais livres.
+

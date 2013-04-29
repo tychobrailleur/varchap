@@ -1,0 +1,51 @@
+\def\batchfile{varchap.ins}
+\input docstrip
+
+\preamble
+   
+        Auteur: Sébastien Le Callonnec
+                email: <sebastien@weblogism.com>
+   
+        Description:
+                Fournit de nouvelles définitions de
+                styles de chapitres.
+   
+        Version: 1.0c
+   
+        Modifié le:
+                29 avril 2013
+        1.0b.- 23/01/2000.-     Fini base package.
+        1.0c.- 28/01/2000.-     Ajouté interfaces preChapitre et postChapitre;
+                                Renommé boitepreChapitre en boiteChapitre     
+        1.1 .- 29/04/2013.-     Ressorti des cartons
+
+\endpreamble
+\keepsilent
+
+\def\Ask#1#2{\def#1{y}}
+\generate{%
+  \file{ex-varchap.tex}{\from{varchap.dtx}{exemple}}
+  \file{varchap.sty}{\from{varchap.dtx}{package}}
+}
+
+
+
+\Msg{***********************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* file into a directory searched by TeX:}
+\Msg{*}
+\Msg{* \space\space varchap.sty}
+\Msg{*}
+\Msg{* To produce the documentation run the file varchap.dtx}
+\Msg{*  through LaTeX.}
+\Msg{* To produce the example file run the file ex-varchap.tex}
+\Msg{*  through LaTeX.}
+\Msg{*}
+\Msg{* L'Eternite, ce sera peut-etre long,}
+\Msg{* mais on n'aura qu'à couper à la moitié.}
+\Msg{***********************************************************}
+
+
+\endbatchfile
+

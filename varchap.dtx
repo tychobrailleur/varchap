@@ -1,0 +1,1062 @@
+% \iffalse metacomment
+% 
+%  Ecrit par Sébastien Le Callonnec <sebastien@weblogism.com>
+%  Pour toute remarque ou question, n'hésitez pas à me contacter.
+% 
+% \fi
+%  \CharacterTable
+%   {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%    Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%    Digits        \0\1\2\3\4\5\6\7\8\9
+%    Exclamation   \!     Double quote  \"     Hash (number) \#
+%    Dollar        \$     Percent       \%      Ampersand     \&
+%    Acute accent  \'     Left paren    \(     Right paren   \)
+%    Asterisk      \*     Plus          \+     Comma         \,
+%    Minus         \-     Point         \.     Solidus       \/
+%    Colon         \:     Semicolon     \;     Less than     \<
+%    Equals        \=     Greater than  \>     Question mark \?
+%    Commercial at \@     Left bracket  \[     Backslash     \\
+%    Right bracket \]     Circumflex    \^     Underscore    \_
+%    Grave accent  \`     Left brace    \{     Vertical bar  \|
+%    Right brace   \}     Tilde         \~}
+% 
+% \CheckSum{574}
+% 
+%  \newcommand{\docversion}{v1.1}
+%  \newcommand{\docdate}{29 avril 2013}
+%
+% \def\generalname{Général~}
+%
+%  \changes{1.0b}{2000/01/23}{Base du package terminée}
+%  \changes{1.0c}{2000/01/28}{Ajout des interfaces \texttt{Pre\-Cha\-pitre} 
+%  et \texttt{Post\-Cha\-pitre}}
+%  \changes{1.0c}{2000/01/28}{Renommage de boite\-Pre\-cha\-pitre en boiteChapitre}
+%  \changes{1.1}{2013/04/29}{Ressortie des cartons}
+%
+% \DoNotIndex{\@M,\@Roman,\@arabic,\@ifclassloaded,\@mainmattertrue,\AtBeginDocument}
+% \DoNotIndex{\baselineskip,\begin,\bf,\bfseries,\c@chapter,\c@secnumdepth,\centering}
+% \DoNotIndex{\chaptername,\char,\CodelineIndex,\color,\DeclareOption,\def,\definecolor}
+% \DoNotIndex{\DocInput,\documentclass,\else,\empty,\EnableCrossrefs,\end,\endinput}
+% \DoNotIndex{\ExecuteOptions,\fi,\fontencoding,\fontfamily,\fontsize,\hbox}
+% \DoNotIndex{\hskip,\Huge,\huge,\if@mainmatter,\ifnum,\ifx}
+% \DoNotIndex{\interlinepenalty,\leavevmode,\let,\linewidth}
+% \DoNotIndex{\m@ne,\MakeUppercase,\NeedsTeXFormat,\newcommand,\newif}
+% \DoNotIndex{\newlength,\nobreak,\noindent,\normalfont,\normalsize}
+% \DoNotIndex{\p@,\par,\ProcessOptions,\ProvidesPackage,\quad}
+% \DoNotIndex{\raggedleft,\raggedright,\raisebox,\RecordChanges}
+% \DoNotIndex{\relax,\renewcommand,\RequirePackage,\resizebox,\rotatebox}
+% \DoNotIndex{\rule,\sc,\selectfont,\setlength,\sf}
+% \DoNotIndex{\space,\thechapter,\typeout,\usefont,\usepackage,\vskip,\vspace}
+%
+%  \title{Le package \texttt{varchap}\thanks{Ce fichier a pour numéro de version 
+%  \docversion{} --- Dernière révision~: \docdate.}}
+%  
+%  \author{Sébastien \textsc{Le Callonnec}\\% 
+%  \texttt{sebastien@weblogism.com}}
+%  
+%  \date{Compilé le \today}
+%  
+%  \newcommand{\m}[1]{\mbox{$\langle$\it #1\/$\rangle$}}
+%  \renewcommand{\arg}{\marg}
+%  \newcommand{\lestyle}[1]{\textsf{#1}\index{#1}}
+%  
+%  \renewcommand{\contentsname}{Sommaire}
+%  
+%  
+%  \maketitle
+%  
+%  \begin{abstract}
+%  Ce document décrit le package \texttt{varchap}, qui est un style
+%  fournissant un moyen efficace et aisé de changer l'apparence des 
+%  chapitres pour les classes de document standard \texttt{report} et 
+%  \texttt{book}.
+%  \end{abstract}
+%  
+%  \tableofcontents
+%  
+%  \section{Introduction}
+%  Il n'est pas aisé d'obtenir des choses assez originales en ce qui
+%  concerne l'apparence des entêtes de chapitres, en \LaTeX{}. Le but 
+%  de ce package est de fournir des styles prédéfinis apportant des 
+%  présentations particulièrement esthétiques, mais également des 
+%  commandes permettant de modifier aisément ces styles prédifinis.
+%  
+%  Il existe déjà des packages réalisant cette tâche avec réussite, 
+%  en particulier, les packages \texttt{fncychap}, de Ulf Lindgren, 
+%  et \texttt{quotchap}, de Karsten Tinnefeld. Le premier offre des
+%  entêtes de toute beauté, avec un système de filets agréable, et il
+%  est possible de redéfinir les commandes afin de personnaliser sa 
+%  présentation. Le second permet quant à lui d'avoir un très bel
+%  entête, accompagné de citations. Mais je restais néanmoins sur ma
+%  faim~: je désirais en effet obtenir quelque chose de plus performant
+%  que ces deux packages, tout en gardant la possibilité de personnaliser
+%  de l'un et l'esthétique de l'autre.
+%  
+%  Le résultat de mon travail en est ce package, qui, je pense, permet
+%  de réaliser de très belles choses, que ce soit en partant des styles
+%  qu'il fournit, ou en recréant entièrement un nouveau style.
+%  
+%  \section{Options de style}
+%  À l'image de ce que Ulf Lindgren a fait dans son package \texttt{fncychap},
+%  les options de style du package \texttt{varchap} portent tous des noms de
+%  personnes. Par contre, j'ai préféré leur donner des noms féminins\ldots\ 
+% \`A vous de voir si \c{c}a vous pla\^it. Dans la version 1.0 du package,
+% il existe 6 options de style~: \lestyle{ellen}, \lestyle{christelle}, \lestyle{audrey}, 
+% \lestyle{undine}, \lestyle{claudia} et \lestyle{lisbeth}. L'option par
+% défaut est \lestyle{ellen}.
+% 
+% Il existe une option suppl\'ementaire, \lestyle{msg}, qui permet d'afficher les
+% noms de style pour chaque chapitre lors de la compilation du document. Ceci
+% peut s'av\'erer utile lorsque l'on utilise plusieurs styles dans un m\^eme 
+% document\footnote{Ce qui n'est toutefois pas recommand\'e~: c'est vraiment pas
+%  beau}.
+% 
+% Les styles sont \'egalement accessibles par les commandes correspondantes~:
+% \DescribeMacro{\getEllen}\DescribeMacro{\getChristelle}\DescribeMacro{\getAudrey}
+% \DescribeMacro{\getUndine}\DescribeMacro{\getClaudia}\DescribeMacro{\getLisbeth}
+% 
+% |\getEllen|, |\getChristelle|, |\getAudrey|, |\getUndine|, |\getClaudia| et 
+% |\getLisbeth|. Le  cas de |\getUndine| est particulier car cette commande
+% prend deux arguments~:
+% 
+% |\getUndine|\arg{longueur}\arg{nombre}
+% 
+% \noindent o\`u longueur est la longueur de l'indentation du titre du chapitre
+% et \textit{nombre} le nombre de lignes de retour en arri\`ere par rapport au 
+% num\'ero de chapitre. Lors de l'utilisation de l'option \lestyle{undine}, la 
+% commande utilis\'ee est par d\'efaut |\getUndine{0pt}{2}|.
+% 
+% \section{Personnalisation des styles}
+% 
+% Le package \texttt{varchap} propose des commandes pour personnaliser ais\'ement 
+% les styles pr\'ed\'efinis et, pourquoi pas, red\'efinir ses propres styles.
+% 
+%  \DescribeMacro{\nomStyle} La macro |\nomStyle|\arg{nom} permet de donner le nom 
+%  \textit{nom} que vous 
+% d\'esirez au style que vous venez de cr\'eer.
+% 
+% \subsection{Le num\'ero de chapitre}
+%  \subsubsection{La fonte}
+% 
+% \DescribeMacro{\fonteNumChap} Cette macro permet de modifier la fonte du 
+% num\'ero de chapitre. Entres autres, elle peut \^etre utilis\'ee avec la 
+% commande |\usefont| pour pouvoir choisir la police ad\'equate.
+% 
+% \subsubsection{La taille}
+% 
+% \DescribeMacro{\tailleNumChap} Cette macro permet de modifier la taille du 
+% num\'ero de chapitre. En particulier, elle peut \^etre utilis\'ee avec la 
+% commande |\fontsize| pour pouvoir obtenir la taille d\'esir\'ee, et si 
+% |\usefont| a \'et\'e utilis\'ee. Sinon, les commandes traditionnelles de 
+% s\'election de taille telles que |\large| ou |\Huge| restent disponibles.
+% 
+% \subsubsection{La couleur}\label{sub:coul}
+% 
+% \DescribeMacro{\coulNumChap} Cette macro permet de modifier la couleur du 
+% num\'ero de chapitre. Pour d\'efinir une couleur, il convient d'utiliser la 
+% commande |\definecolor| du package \texttt{color}, et de la pr\'eciser par la 
+% commande |\color| (cf. la doc du package \texttt{color} pour plus 
+% d'informations).
+% 
+% Deux couleurs sont pr\'ed\'efinies par le package \texttt{varchap}~: 
+% \texttt{grisaille} et \texttt{grisaillepale}.
+% 
+% \subsubsection{La s\'election}
+% 
+% \DescribeMacro{\selectNumChap} Cette macro permet de s\'electionner la fonte 
+% choisie par |\fonteNumChap| en affectant |\selectFont| \`a |\selectNumChap|. 
+% 
+% Sinon, on peut laisser |\selectNumChap| vide.
+% 
+% \subsubsection{La <<~mise en page~>>}
+% 
+% \DescribeMacro{\MEPNumChap} La macro |\MEPNumChap| permet d'indiquer si le 
+% numéro de chapitre est au fer à gauche, à droite ou centré,appelé mise en 
+% page\footnote{Désolé pour cet abus de langage, mais cette expression me semblait 
+% la plus appropriée pour dénommer ceci. Si vous avez un nom plus pertinent, 
+% n'hésitez pas à me contacter.}) dans le package \texttt{varchap}. Pour cela, on 
+% peut affecter les commandes traditionnelles telles que |\raggedleft| pour mettre 
+% au fer à droite, |\raggedright| pour mettre au fer à gauche, et |\centering| 
+% pour centrer.
+% 
+% \subsubsection{Romain ou arabe}
+% 
+% \DescribeMacro{\romainNumChap}\DescribeMacro{\arabeNumChap} Les deux macros 
+% |\romainNumChap| et |\arabeNumChap| permettent respectivement de passer le
+% numéro du chapitre en chiffres romains et en chiffres arabes. Seul le style
+% \lestyle{lisbeth} a par défaut une numérotation romaine.
+% 
+% \subsubsection{Le mot <<~Chapitre~>>}\label{sec:chnom}
+% 
+% \DescribeMacro{\chapitreNom}\DescribeMacro{\pasChapitreNom} Dans les classes 
+% standard \LaTeX{}, |\chaptername| contient le nom du sectionnement réalisé par 
+% |\chapter|. En Français, il s'agit bien sûr de <<~Chapitre~>>. Dans le package 
+% \texttt{varchap}, ce mot n'apparaît que si la variable booléenne 
+% |\if@ch@pitren@m| est à \textit{true}. Pour le faire apparaître, la commande 
+% |\chapitreNom| peut être utilisée. |\pasChapitreNom|, quant à elle, 
+% <<~désactive~>> l'apparition du contenu de
+% |\chaptername|.
+% 
+% \subsection{Le titre du chapitre}
+% 
+% \subsubsection{La fonte}
+% 
+% \DescribeMacro{\fonteTitreChap} Cette macro permet de modifier la fonte du titre 
+% de chapitre. Entres autres, elle peut \^etre utilis\'ee avec la commande 
+% |\usefont| pour pouvoir choisir la police ad\'equate.
+% 
+% \subsubsection{La taille}
+% 
+% \DescribeMacro{\tailleTitreChap} Cette macro permet de modifier la taille du 
+% titre de chapitre.
+% 
+% 
+% \subsubsection{La couleur}
+% 
+% \DescribeMacro{\coulTitreChap} Cette macro permet de modifier la couleur du 
+% titre de chapitre. Voir commentaires de \ref{sub:coul}.
+% 
+% \subsubsection{La s\'election}
+% 
+% \DescribeMacro{\selectTitreChap} Cette macro permet de s\'electionner la fonte 
+% choisie par |\fonteNumChap| en affectant |\selectFont| \`a |\selectTitreChap|. 
+% 
+% Sinon, on peut laisser |\selectTitreChap| vide.
+% 
+% \subsubsection{La <<~mise en page~>>}
+% \DescribeMacro{\MEPNumChap} La macro |\MEPNumChap| permet d'indiquer si le 
+% titre du chapitre est au fer à gauche, à droite ou centré. Pour cela, on peut 
+% affecter les commandes traditionnelles telles que |\raggedleft| pour mettre au 
+% fer à droite, |\raggedright| pour mettre au fer à gauche, et |\centering| pour 
+% centrer.
+% 
+% \DescribeMacro{\MEP}\DescribeMacro{\MEPuni} Les commandes |\MEP| et |\MEPuni| sont
+% en sus fournies pour gérer la <<~mise en page~>> du numéro et du titre en même temps~:
+% 
+% |\MEP|\arg{mise-en-page-numero}\arg{mise-en-page-titre}
+% 
+% |\MEPuni|\arg{mise-en-page}
+% 
+% \begin{itemize}
+% \item |\MEP| affecte \textit{mise-en-page-numero} à la mise en page du numéro et
+% \textit{mise-en-page-titre} à la mise en page du titre.
+% 
+% \item|\MEPuni| affecte \textit{mise-en-page} aux deux composantes.
+% \end{itemize}
+% 
+% \subsection{Les pr\'e et post-entêtes, et le <<~tampon~>>}
+% 
+% \texttt{varchap} apporte la possibilité d'insérer des pré et post entêtes afin 
+% de permettre des choses plus <<~esthétiques~>>. Ainsi, à l'image de ce que fait 
+% le package \texttt{quotchap}, on pourra insérer une citation, ou bien encore une 
+% image dans une boîte spéciale appelée |\boitePrechapitre|.
+% 
+% \DescribeMacro{\preChapitre}\DescribeMacro{\postChapitre} Les macros 
+% |\preChapitre|\arg{contenu} et |\postChapitre|\arg{contenu} insèrent 
+% \textit{contenu} respectivement avant et après l'entête du chapitre. Ainsi, par 
+% exemple, pour insérer une citation dans un entête de style
+% \lestyle{undine}, la commande serait~:
+% 
+% 
+% \begin{verbatim}
+% \preChapitre{\vspace*{-3cm}% 
+% {\raggedleft{\itshape{% 
+% L'\'Eternit\'e, ce sera peut-\^etre long,\\
+% mais on n'aura qu'\`a couper \`a la moiti\'e.}}\\[1.2\baselineskip]
+% -- Un Sage\par}}
+% \end{verbatim}
+% 
+% 
+% Il est à noter que des ajustements de longueur peuvent être nécessaires, comme 
+% ici, avec |\vspace|, ou avec les différentes longueurs de mise en page de 
+% l'entête précisée en \ref{sec:long}.
+% 
+% \DescribeMacro{\boiteChapitre} La |\boiteChapitre| peut-être utilisée afin 
+% d'insérer dans les pré et post entêtes de chapitre un contenu, tel qu'une image, 
+% ou un élément graphique. Cette commande s'utilise comme suit~:
+% 
+% |\boiteChapitre{|\arg{largeur}\arg{hauteur}\arg{ecart}\arg{contenu}
+% 
+% \noindent avec~:
+% 
+% \renewcommand{\descriptionlabel}[1]{% 
+% {\hspace{\labelsep}\textit{#1}}}
+% \begin{description}
+%   \item[largeur~:] largeur de la boîte;
+%   \item[hauteur~:] hauteur de la boîte;
+%   \item[ecart~:] écart vertical avec le numéro de titre;
+%   \item[contenu~:] contenu de la boîte.
+% \end{description}
+% 
+% \DescribeMacro{\insereTampon} Le <<~tampon~>> est quant à lui la partie qui se 
+% trouve entre le numéro du chapitre et le titre. La commande permettant de 
+% remplir ce tampon est |\insereTampon|\arg{contenu}, et la |\boiteChapitre| peut 
+% également être utilisée pour remplir le tampon.
+% 
+% \DescribeMacro{\monetoile} Le style \lestyle{claudia}  a en particulier un tampon 
+% constitué d'une étoile entouré de deux filets. L'étoile est contenue dans 
+% |\monetoile| et les filets dans |\reglesoulevee|. Il est facile de changer ces 
+% éléments à l'aide d'un |\renewcommand|, pour changer l'étoile en un pique, par exemple~:
+% 
+% \verb+\renewcommand{\monetoile}{$\spadesuit$}+
+% 
+% 
+% 
+% \subsection{Les longueurs}\label{sec:long}
+% 
+% \DescribeMacro{\avantchapitreskip}
+% \DescribeMacro{\intersticeskip}
+% \DescribeMacro{\apreschapitreskip}
+% Pour résumer ce qui précède, un entête de chapitre est formé par le package 
+% \texttt{varchap} de la manière suivante~:
+% 
+% \begin{itemize}
+% 	\item Un premier espace appelé |\avantchapitreskip|, qui sépare le haut de 
+% 	la feuille de notre entête;
+% 	\item le préchapitre;
+% 	\item la numéro du chapitre, avec éventuellement, s'il est demandé, le con\-tenu de 
+% 	|\chaptername| (cf.~\ref{sec:chnom});
+% 	\item le <<~tampon~>>;
+% 	\item un nouvel espace appelé |\intersticeskip|, qui sépare le tampon du
+% 	postchapitre;
+% 	\item le postchapitre;
+% 	\item un dernier espace séparant l'entête du chapitre du début du chapitre
+% 	en lui-même, appelé |\apreschapitreskip|.
+% \end{itemize}
+% 
+% L'utilisateur a très facilement accès à ces longueurs à l'aide de la commande suivante.
+% 
+% \DescribeMacro{\chapLong} La macro |\chapLong| s'utilise ainsi~:
+% 
+% |\chapLong|\arg{avantchapitreskip}\arg{intersticeskip}\arg{apreschapitreskip}
+% 
+% Si vous laissez un des arguments vides, la longueur par défaut sera gardée. 
+% 
+% Notez que par défaut, les valeurs sont~:
+% 
+% \begin{center}
+% \begin{tabular}{ll}
+% \textit{avantchapitreskip} & 50pt \\
+% \textit{intersticeskip} & 40pt \\
+% \textit{apreschapitreskip} & 20pt \\
+% \end{tabular}
+% \end{center}
+% 
+% Comprenez~: si vous laissez les champs correspondants vides, la valeur du tableau
+% est celle choisie.
+%
+% \StopEventually{\setcounter{IndexColumns}{2}\PrintIndex\PrintChanges}
+%
+% \section{Implémentation}
+%
+% \subsection{Les modules \texttt{docstrip}}
+%
+% Afin de produire la présente documentation et le package \texttt{varchap} en
+% lui-même, les modules \texttt{docstrip} suivants ont été utilisés~:
+%
+%\begin{center}
+% \begin{tabular}{ll}
+% \texttt{driver} & produit le pilote pour la documentation \\
+% \texttt{package} & produit le fichier de package \texttt{varchap.sty} \\
+% \texttt{exemple} & produit le fichier d'exemple \texttt{ex-varchap.tex} \\
+% \end{tabular}
+%\end{center}
+%
+% \subsection{Le pilote}
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass[a4paper,frenchb]{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\CodelineIndex
+\EnableCrossrefs
+\RecordChanges
+\begin{document}
+\DocInput{varchap.dtx}
+\end{document}
+%</driver>
+%    \end{macrocode}
+%
+% \subsection{Le package}
+% Cette section commente les sources du package \texttt{varchap}.
+%
+%
+%
+% \subsubsection{Identification}
+%
+%  On commence par identifier le package conformément aux standards \LaTeXe{}~:
+%    \begin{macrocode}
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+
+%%% Quelques definitions d'identification
+\newcommand{\varchapname}{varchap}
+\newcommand{\varchapversion}{v1.1}
+\newcommand{\varchapdescription}{Nouveaux styles de chapitre}
+\newcommand{\varchapcreation}{2000/01/22}
+\newcommand{\varchapmodification}{2013/04/29}
+
+\ProvidesPackage{varchap}
+             [\varchapmodification\space\varchapversion
+              \space\varchapdescription]
+%    \end{macrocode}
+% On définit ainsi 5 commandes descriptives du package, qui peuvent être appelées 
+% dans un fichier quelconque. Ces commandes servent alors pour l'identification sur
+% le terminal et dans le fichier de log.
+%
+% \subsubsection{Chargement de packages}
+% \'Etant donné que l'on utilise de la couleur pour les numéros de chapitre, entre
+% autres, et des |\resizebox| pour les boîtes ou des |\rotate|, il nous faut appeler 
+% les packages \texttt{color} et \texttt{graphicx}~:
+%    \begin{macrocode}
+%%% Appel de packages
+\RequirePackage{color}
+\RequirePackage{graphicx}
+
+%    \end{macrocode}
+%
+% \subsection{Classe \texttt{book}}
+% La classe \texttt{book} possède une commande |\mainmatter| qui influe sur la
+% numérotation des chapitres. Or, cette commande n'est pas présente dans une 
+% classe comme \texttt{report}. Il faut donc, si on ne se trouve pas dans la 
+% classe \texttt{book} simuler le fait que l'on soit dans le \texttt{mainmatter}
+% en créant le booléen |\if@mainmatter| et en le mettant à \textit{true}~:
+%    \begin{macrocode}
+%%% Test si on est dans la classe book
+%%% pour gérer le cas de mainmatter qui n'existe pas.
+\@ifclassloaded{book}{}{%
+    \newif\if@mainmatter%
+    \@mainmattertrue}
+
+%    \end{macrocode}
+%
+% \subsection{Quelques définitions}
+%
+% \`A présent, on définit deux couleurs, \texttt{grisaille} et 
+% \texttt{grisaillepale}, qui serviront pour les numéros de chapitre~:
+%    \begin{macrocode}
+%%% Quelques definitions 
+
+% de couleurs
+\definecolor{grisaille}{rgb}{0.6,0.6,0.6}
+\definecolor{grisaillepale}{rgb}{0.8,0.8,0.8}
+\definecolor{orange}{rgb}{1,.549,0}
+
+%    \end{macrocode}
+% Puis, on définit un \texttt{if} pour gérer la gestion des messages. Par
+% défaut, on choisit de ne pas afficher ces messages en mettant ce \texttt{if}
+% à \textit{false}.
+%    \begin{macrocode}
+% Definition d'un if pour afficher les messages
+% ou les suspendre
+\newif\if@stylemessage\@stylemessagefalse % Ne pas afficher
+
+%    \end{macrocode}
+% Suivent les définitions de |\monetoile| et de |\reglesoulevee| utilisées
+% dans le style \lestyle{claudia}~:
+%    \begin{macrocode}
+% Divers
+\newcommand{\monetoile}{{%
+    \fontencoding{U}\fontfamily{msa}%
+    \fontsize{10}{12pt}\selectfont\char"46}}
+\newcommand{\reglesoulevee}{%
+    \hbox{\raisebox{0.8ex}{\rule{2.5cm}{0.4pt}}}}
+
+%    \end{macrocode}
+% Les 3 longueurs \texttt{avantchapitreskip}, \texttt{intersticeskip} 
+% et \texttt{apres\-cha\-pi\-treskip} sont alors définies et initialisées à
+% à leur valeur par défaut (cf~section~\ref{sec:long})~:
+%    \begin{macrocode}
+%%% Les longueurs associees au chapitre
+\newlength{\avantchapitreskip}
+\newlength{\apreschapitreskip}
+\newlength{\intersticeskip}
+
+\setlength{\avantchapitreskip}{50\p@}
+\setlength{\apreschapitreskip}{40\p@}
+\setlength{\intersticeskip}{20\p@}
+
+%    \end{macrocode}
+% \subsection{Numéro de chapitre}\label{sub:implnum}
+% Commencent les choses sérieuses~: on s'occupe ainsi du numéro de 
+% chapitre. Les commandes suivantes ne sont pas censées être accédées
+% par l'utilisateur, d'où l'utilisation du @ dans certains noms.
+% Toutefois, d'autres noms gardent des noms <<~accessibles~>> et ceci,
+% afin que l'utilisateur plus expérimenté puisse introduire ses propres
+% paramètres.
+%    \begin{macrocode}
+%%% Numero du chapitre
+\newcommand{\@fontenumer@}[2]{%
+    \usefont{#1}{#2}{b}{n}%
+}
+\newcommand{\fontenumero}{\@fontenumer@{T1}{pbk}}
+\newcommand{\@taillefontenumero}[2]{\fontsize{#1}{#2}}
+\newcommand{\taillefontenumero}{\@taillefontenumero{100}{130}}
+\newcommand{\couleurfontenumero}{\color{grisaille}}
+\newcommand{\selectfontenumero}{\selectfont}
+%    \end{macrocode}
+% |\@fontenumero| est la commande utilisée pour reprendre
+% toutes les caractéristiques du numéro de chapitre~:
+%    \begin{macrocode}
+\newcommand{\@fontenumero}{%
+    \fontenumero%
+    \taillefontenumero%
+    \couleurfontenumero%
+    \selectfontenumero%
+}
+
+%    \end{macrocode}
+% Puis on définit ce qui est appelé dans le package \texttt{varchap},
+% par abus de langage, la <<~mise en page~>> du numéro. Par défaut, cette
+% mise en page est <<~au fer à droite~>>~:
+%    \begin{macrocode}
+\newcommand{\miseenpagenumero}{\raggedleft}
+
+%    \end{macrocode}
+% Deux nouvelles commandes pour gérer le |\chaptername|. La première est
+% accessible par l'utilisateur pour la mise en page du mot <<~Chapitre~>>
+% (ici, c'est la même que celle du numéro en lui-même -- \texttt{miseenpagenumero},
+% mais avec un quadratin séparant les deux entités). La seconde est quant à elle
+% celle réellement appelée lors de la mise en forme de l'entête. Par défaut, elle
+% correspond à |\relax|, mais peut-être activée/désactivée par les commandes 
+% |\chapitreNom| et |\pasChapitreNom|~; c'est pour cette raison que cette commande
+% a été rendue <<~invisible~>> à l'utilisateur.
+%    \begin{macrocode}
+\newcommand{\chapitrenom}{\chaptername\quad}
+\newcommand{\@chapitrenom}{\relax}
+
+%    \end{macrocode}
+% \subsection{Le <<~Tampon~>>}
+% Il est défini par défaut comme étant vide~:
+%    \begin{macrocode}
+%%% Le <<tampon>>, ce qui se trouve entre le numero
+%%% et le titre.
+\newcommand{\tampon}{\relax}
+
+
+%    \end{macrocode}
+% \subsection{Titre de chapitre}\label{sub:impltitre}
+% Même chose que pour le numéro de chapitre, et mêmes remarques. Inutile de s'étendre.
+%    \begin{macrocode}
+%%% Titre du chapitre
+\newcommand{\@fonte@titre}[2]{%
+    \usefont{#1}{#2}{b}{n}%
+}
+\newcommand{\fontetitre}{\@fonte@titre{T1}{ptm}}
+\newcommand{\@taillefontetitre}[2]{\fontsize{#1}{#2}}
+\newcommand{\taillefontetitre}{\Huge\bfseries}
+\newcommand{\couleurfontetitre}{\relax}
+\newcommand{\selectfontetitre}{\relax}
+\newcommand{\@fontetitre}{%
+    \fontetitre%
+    \taillefontetitre%
+    \couleurfontetitre%
+    \selectfontetitre%
+}
+
+\newcommand{\miseenpagetitre}{\raggedleft}
+
+%    \end{macrocode}
+% \subsection{Pré et Post-entêtes de chapitre}
+% On définit les commandes |\prechapitre| et |\postchapitre| comme étant vides.
+%    \begin{macrocode}
+%%% Avant et après le chapitre
+\newcommand{\prechapitre}{}
+\newcommand{\postchapitre}{}
+
+%    \end{macrocode}
+% \subsection{Les interfaces utilisateur}
+% Elles sont conçues pour avoir un nom de la forme~:
+%
+% \begin{center}
+% \texttt{\bslash}[\texttt{attribut}][\texttt{Num}\verb+|+\texttt{Titre}]\texttt{Chap}
+% \end{center}
+%
+% avec les attributs~:
+%
+%\begin{center}
+% \begin{tabular}{ll}
+%  \textit{fonte} & fonte \\
+%  \textit{coul} & couleur \\
+%  \textit{taille} & taille \\
+%  \textit{select} & |\selectfont| ou |\relax| \\
+%  \textit{MEP} & <<~mise en page~>> \\
+% \end{tabular}
+%\end{center}
+% Elles permettent en fait l'accès aux commandes de plus bas niveau définies en
+% \ref{sub:implnum} et en \ref{sub:impltitre}.
+%    \begin{macrocode}
+%%% Commandes interface utilisateur
+
+% Fontes
+\newcommand{\fonteNumChap}[1]{%
+    \renewcommand{\fontenumero}{#1}}
+\newcommand{\fonteTitreChap}[1]{%
+    \renewcommand{\fontetitre}{#1}}
+
+% Couleurs
+\newcommand{\coulNumChap}[1]{%
+    \renewcommand{\couleurfontenumero}{#1}}
+\newcommand{\coulTitreChap}[1]{%
+    \renewcommand{\couleurfontetitre}{#1}}
+
+% Tailles
+\newcommand{\tailleNumChap}[1]{%
+    \renewcommand{\taillefontenumero}{#1}}
+\newcommand{\tailleTitreChap}[1]{%
+    \renewcommand{\taillefontetitre}{#1}}
+
+% Selection
+\newcommand{\selectNumChap}[1]{%
+    \renewcommand{\selectfontenumero}{#1}}
+\newcommand{\selectTitreChap}[1]{%
+    \renewcommand{\selectfontetitre}{#1}}
+
+%    \end{macrocode}
+% La macro |\chapLong| est définie telle que décrite à la section~\ref{sec:long}.
+%    \begin{macrocode}
+% Longueurs
+\newcommand{\chapLong}[3]{%
+%    \end{macrocode}
+% On <<~capture~>> les 3 arguments dans les |\arg@@|\textit{num} respectifs~:
+%    \begin{macrocode}
+\def\arg@@un{#1}
+\def\arg@@deux{#2}
+\def\arg@@trois{#3}
+%    \end{macrocode}
+% puis on regarde si ces arguments sont vides. Si c'est le cas, on prend les 
+% valeurs par défaut, sinon, on prend la valeur donnée.
+%    \begin{macrocode}
+\ifx\arg@@un\empty
+  \setlength{\avantchapitreskip}{50\p@}
+\else
+  \setlength{\avantchapitreskip}{#1}
+\fi
+\ifx\arg@@deux\empty
+  \setlength{\intersticeskip}{40\p@}
+\else
+  \setlength{\intersticeskip}{#2}
+\fi
+\ifx\arg@@trois\empty
+  \setlength{\apreschapitreskip}{20\p@}
+\else
+  \setlength{\apreschapitreskip}{#3}
+\fi
+}
+
+%    \end{macrocode}
+% Viennent alors les commandes activant/désactivant l'apparition du mot <<~Chapitre~>>%
+% \footnote{ou autre chose selon la langue et le besoin.}.
+%
+% D'abord, définition (tardive?) du booléen surveillant la chose~: \textit{true} si le
+% mot <<~Chapitre~>> s'affiche, \textit{false} sinon. Ici, par défaut, ce mot ne s'affiche pas.
+%    \begin{macrocode}
+% 
+\newif\if@ch@pitren@m\@ch@pitren@mfalse
+%    \end{macrocode}
+%  Puis, la définition des commandes elle-mêmes~:
+%    \begin{macrocode}
+
+\newcommand{\chapitreNom}{%
+    \@ch@pitren@mtrue%
+}
+\newcommand{\pasChapitreNom}{%
+    \@ch@pitren@mfalse%
+}
+
+%    \end{macrocode}
+% La commande |\insereTampon|~:
+%    \begin{macrocode}
+% Insertion <<tampon>>
+\newcommand{\insereTampon}[1]{
+    \renewcommand{\tampon}{#1}
+}
+
+%    \end{macrocode}
+% \`A présent, on définit les commandes de <<~mise en page~>>. Tout d'abord, les
+% commandes individuelles, conforme au format décrit plus haut~:
+%    \begin{macrocode}
+% Mise en Page
+\newcommand{\MEPNumChap}[1]{%
+    \renewcommand{\miseenpagenumero}{#1}}
+\newcommand{\MEPTitreChap}[1]{%
+    \renewcommand{\miseenpagetitre}{#1}}
+
+%    \end{macrocode}
+% puis les commandes génériques. |\MEPuni| applique la même mise en page aux deux
+% entités numéro et titre, tandis que |\MEP| applique deux \textsc{mep} différentes
+% à chacun~:
+%    \begin{macrocode}
+% Commande générique pour la Mise En Page (MEP)
+\newcommand{\MEPuni}[1]{%
+    \renewcommand{\miseenpagenumero}{#1}
+    \renewcommand{\miseenpagetitre}{#1}
+}
+\newcommand{\MEP}[2]{%
+    \renewcommand{\miseenpagenumero}{#1}
+    \renewcommand{\miseenpagetitre}{#2}
+}
+
+%    \end{macrocode}
+% Les macros |\preChapitre| et |\postChapitre|, ajoutées dans la version 1.0c sont
+% des interfaces pour emplir les pré- et post-entêtes de chapitre~:
+%    \begin{macrocode}
+% Pre et Post entete
+\newcommand{\preChapitre}[1]{%
+    \renewcommand{\prechapitre}{#1}}
+\newcommand{\postChapitre}[1]{%
+    \renewcommand{\prechapitre}{#1}}
+
+
+%    \end{macrocode}
+% Deux macros pour appliquer au numéro du chapitre soit la numérotation arabe,
+% soit la numérotation romaine.
+%    \begin{macrocode}
+% Divers
+\newcommand{\arabeNumChap}{%
+    \renewcommand{\thechapter}{\@arabic\c@chapter}}
+\newcommand{\romainNumChap}{%
+    \renewcommand{\thechapter}{\@Roman\c@chapter}}
+
+%    \end{macrocode}
+% On définit alors notre boiteChapitre~:
+%    \begin{macrocode}
+\newcommand{\boiteChapitre}[4]{%
+{\noindent\centering%
+\hbox{\resizebox{#1}{#2}{#4}}\par}\vskip #3}
+
+%    \end{macrocode}
+% Et enfin, on introduit la macro servant à renommer le style~:
+%    \begin{macrocode}
+\newcommand{\nomStyle}[1]{%
+    \renewcommand{\nomstyle}{#1}}
+    
+    
+%    \end{macrocode}
+% \subsection{Mise en forme de l'entête}
+% Afin de mettre en forme l'entête de chapitre, on redéfinit les
+% commandes |\@makechapterhead| et |\@makeschapterhead| des classes 
+% standard \LaTeXe{} \texttt{report} et \texttt{book}.
+%    \begin{macrocode}
+%%% Redefinition de \@makechapterhead
+\renewcommand{\@makechapterhead}[1]{%
+%    \end{macrocode}
+% \`A chaque création d'un entête de chapitre, \texttt{varchap} peut
+% afficher le style utilisé si l'option \lestyle{msg} a été passé au
+% package~:
+%    \begin{macrocode}
+    \if@stylemessage\typeout{\space(style\space`\nomstyle')}\fi%
+%    \end{macrocode}
+% Puis on place notre première longueur verticale, |\avantchapitreskip|, entre le
+% haut de la feuille et le numéro de chapitre~:
+%    \begin{macrocode}
+    \vspace*{\avantchapitreskip}%
+%    \end{macrocode}
+% Le préchapitre est alors placé~:
+%    \begin{macrocode}
+    \prechapitre\par%
+%    \end{macrocode}
+% Commence alors la <<~région~>> numéro de chapitre. Il est à remarquer qu'il n' y a
+% pas d'espace entre |\prechapitre| et cette région. Elle est donc à gérer dans le
+% |\prechapitre|.
+%
+% La mise en page de la zone numéro de titre\footnote{comprenant éventuellement le 
+% contenu de \texttt{\bslash chaptername} et le numéro lui-même.} est commandé 
+% par |\miseenpagenumero| qui s'applique
+% donc bien à \emph{toute} la zone, |\@chapitrenom| y compris.
+%    \begin{macrocode}
+      {\miseenpagenumero%
+       \ifnum \c@secnumdepth >\m@ne%
+          \if@mainmatter%
+%    \end{macrocode}
+% Le |\@chapitrenom| ne s'affiche que si c'est demandé~:
+%    \begin{macrocode}
+          \if@ch@pitren@m\@chapitrenom\fi%
+%    \end{macrocode}
+% Et enfin placement du numéro mise en forme par |\@fontenumero|~:
+%    \begin{macrocode}
+          \@fontenumero\thechapter%
+          \par\nobreak%
+%    \end{macrocode}
+% On place alors le <<~Tampon~>> immédiatement après la zone numéro. Là encore, 
+% la gestion de la distance Zone Numéro/Tampon doit se faire dans le tampon lui-même.
+%    \begin{macrocode}
+          \tampon\par%
+%    \end{macrocode}
+% Puis, la deuxième longueur est placée, |\intersticeskip|~:
+%    \begin{macrocode}
+          \vskip\intersticeskip%
+          \fi
+        \fi
+      }
+      \interlinepenalty\@M%
+%    \end{macrocode}
+% On place alors la zone titre, mise en forme par |\miseenpagetitre| et |\@fontetitre|~:
+%    \begin{macrocode}
+    {\miseenpagetitre\@fontetitre #1\par\nobreak}%
+%    \end{macrocode}
+% Le postchapitre se place alors aussitôt après~:
+%    \begin{macrocode}
+    \postchapitre\par%
+%    \end{macrocode}
+% Et, enfin, la dernière longueur sépare le postchapitre du début du texte.
+%    \begin{macrocode}
+    \vskip\apreschapitreskip%
+}
+
+
+%    \end{macrocode}
+% |\@makeschapterhead| est redéfinie, conformément à la nouvelle forme de l'entête~:
+%    \begin{macrocode}
+%%% Redefinition de \@makeschapterhead
+\renewcommand{\@makeschapterhead}[1]{%
+  {\let\c@secnumdepth\m@ne\@makechapterhead{#1}}}
+
+%    \end{macrocode}
+% \subsection{Les styles}
+% Viennent alors la définition des styles. On commence par le style par défaut,
+% le style \lestyle{ellen}.
+%    \begin{macrocode}
+%%% Identification du style
+\newcommand{\nomstyle}{Ellen}
+
+%    \end{macrocode}
+% On définit alors la commande qui permet \textit{on-the-fly} de changer de style.
+% Dans le package, ces commandes ont un format <<~standard~>>~:
+% \texttt{\symbol{92}get}\textit{nom-style}.
+%    \begin{macrocode}
+\newcommand{\getEllen}{%
+%    \end{macrocode}
+% On attribue le nom au style~:
+%    \begin{macrocode}
+\renewcommand{\nomstyle}{Ellen}
+%    \end{macrocode}
+% On décide de ne pas afficher le contenu de |\chaptername|~:
+%    \begin{macrocode}
+\@ch@pitren@mfalse
+%    \end{macrocode}
+% et la numérotation sera arabe~:
+%    \begin{macrocode}
+\arabeNumChap%
+
+%    \end{macrocode}
+% On <<~vide~>> les tampons qui pourraient être éventuellement pleins~:
+%    \begin{macrocode}
+\insereTampon{}
+\preChapitre{}
+\postChapitre{}
+%    \end{macrocode}
+% On met alors en forme le |\chapitrenom|, même si pour le style \lestyle{ellen},
+% il ne s'affiche pas.
+%    \begin{macrocode}
+\renewcommand{\chapitrenom}{\chaptername\quad}
+
+%    \end{macrocode}
+% Les longueurs définies plus haut sont alors fixées~:
+%    \begin{macrocode}
+\chapLong{50\p@}{0\p@}{20\p@}
+
+%    \end{macrocode}
+% On met alors en forme le numéro de chapitre~: en \textit{bookman}, 100pt,
+% couleur \texttt{grisaille}. Le |\selectNumChap| doit alors passer à
+% \texttt{selectfont} pour sélectionner la fonte.
+%    \begin{macrocode}
+\fonteNumChap{\@fontenumer@{T1}{pbk}}
+\tailleNumChap{\@taillefontenumero{100}{130}}
+\coulNumChap{\color{grisaille}}
+\selectNumChap{\selectfont}
+
+%    \end{macrocode}
+% Même chose pour le titre de chapitre qui est quant à lui en \texttt{times},
+% mais n'est pas sélectionné~; la taille est alors mise à |\Huge|, et on choisit
+% le gras~:
+%    \begin{macrocode}
+\fonteTitreChap{\@fonte@titre{T1}{ptm}}
+\tailleTitreChap{\Huge\bfseries}
+\coulTitreChap{}
+\selectTitreChap{}
+
+%    \end{macrocode}
+% On place alors les deu éléments à droite~:
+%    \begin{macrocode}
+\MEPuni{\raggedleft}
+}
+
+%
+%    \end{macrocode}
+% Le style \lestyle{christelle}~:
+%    \begin{macrocode}
+\newcommand{\getChristelle}{%
+%    \end{macrocode}
+% Par défaut, chargement des attributs du style \lestyle{ellen}~:
+%    \begin{macrocode}
+\getEllen%
+%    \end{macrocode}
+% Nommage du style~:
+%    \begin{macrocode}
+\nomStyle{Christelle}
+%    \end{macrocode}
+% Puis redéfinition d'attributs~:
+%    \begin{macrocode}
+\coulNumChap{\color{grisaillepale}}
+\tailleTitreChap{\Huge\bfseries}
+\setlength{\intersticeskip}{-2.4\baselineskip}
+}
+
+%    \end{macrocode}
+% Le style \lestyle{audrey}~:
+%    \begin{macrocode}
+\newcommand{\getAudrey}{%
+\getEllen%
+\chapitreNom%
+\renewcommand{\@chapitrenom}{%
+\@fontetitre\huge{\bfseries\chaptername}}
+\nomStyle{Audrey}
+\insereTampon{\vskip -40mm\rule{\linewidth}{0.4pt}}
+\chapLong{-40mm}{-\baselineskip}{40mm}
+\MEPNumChap{\raggedright}
+}
+
+%    \end{macrocode}
+% Le style \lestyle{undine}~:
+%    \begin{macrocode}
+\newcommand{\getUndine}[2]{%
+\getEllen%
+\chapitreNom%
+\nomStyle{Undine}
+\MEP{\raggedright}{\raggedright\hskip #1}
+\renewcommand{\@chapitrenom}{%
+    \rotatebox{90}{\resizebox{70pt}{2ex}{\bf\sc\chaptername}}}
+\setlength{\intersticeskip}{-#2\baselineskip}
+}
+
+%    \end{macrocode}
+% Le style \lestyle{claudia}~:
+%    \begin{macrocode}
+\newcommand{\getClaudia}{%
+\getEllen%
+\nomStyle{Claudia}
+\chapitreNom%
+\renewcommand{\@chapitrenom}{\MakeUppercase{\chaptername}}
+\MEP{\centering\Huge\sf\bf}{\centering}
+\coulNumChap{}
+\fonteNumChap{\@fontenumer@{T1}{ptm}}
+\tailleNumChap{\@taillefontenumero{60}{62}}
+
+\setlength{\intersticeskip}{\baselineskip}
+\insereTampon{%
+    \vskip -30pt\leavevmode%
+    \hbox{{\normalfont\normalsize%
+    \reglesoulevee~\monetoile~\reglesoulevee}}}
+}
+
+%    \end{macrocode}
+% Le style \lestyle{lisbeth}~:
+%    \begin{macrocode}
+\newcommand{\getLisbeth}{%
+\getEllen%
+\romainNumChap%
+\nomStyle{Lisbeth}
+\coulNumChap{\color{grisaillepale}}
+\tailleTitreChap{\Huge\bfseries\noindent}
+
+\MEPuni{\centering}
+\chapLong{-30mm}{-2.4\baselineskip}{70mm}
+}
+
+\def\creerStyle{\@ifnextchar[\creer@style{\creer@style[]}}
+\def\creer@style[#1]#2#3#4{\creer@@style{#1}{#2}{#3}%
+\setkeys{v@rch@pkey}{#1}\relax}
+
+%%% Definition des cles
+\define@key{v@rch@pkey}{coulNumChap}{\coulNumChap{\color{#1}}\relax}
+\define@key{v@rch@pkey}{tailleNumChap}{\tailleNumChap{#1}\relax}
+\define@key{v@rch@pkey}{fontNumChap}{\fontNumChap{#1}\relax}
+\define@key{v@rch@pkey}{selectNumChap}[true]{\tailleNumChap{\selectfont}\relax}
+\define@key{v@rch@pkey}{MEPNumChap}{\MEPNumChap{#1}\relax}
+
+\define@key{v@rch@pkey}{arabeNumChap}[true]{\arabeNumChap\relax}
+\define@key{v@rch@pkey}{romainNumChap}[true]{\romainNumChap\relax}
+
+\define@key{v@rch@pkey}{chapitreNom}[true]{\chapitreNom\relax}
+
+\define@key{v@rch@pkey}{coulTitreChap}{\coulTitreChap{\color{#1}}\relax}
+\define@key{v@rch@pkey}{tailleTitreChap}{\tailleTitreChap{#1}\relax}
+\define@key{v@rch@pkey}{fontTitreChap}{\fontTitreChap{#1}\relax}
+\define@key{v@rch@pkey}{selectTitreChap}[true]{\tailleTitreChap{\selectfont}\relax}
+\define@key{v@rch@pkey}{MEPTitreChap}{\MEPTitreChap{#1}\relax}
+
+\define@key{v@rch@pkey}{avantChapSkip}{\renewcommand{\avantchapitreskip}{#1}\relax}
+\define@key{v@rch@pkey}{apresChapSkip}{\renewcommand{\apreschapitreskip}{#1}\relax}
+\define@key{v@rch@pkey}{intersticeSkip}{\renewcommand{\intersticeskip}{#1}\relax}
+
+
+\newcommand{\creer@@style}[3]{%
+\def\firstlettre##1##2\relax{##1}%
+\edef\next{\def\noexpand\firstlettre{\firstlettre #1\relax}}%
+\uppercase\expandafter{\next}%
+\def\suitelettre##1##2\relax{##2}%
+\expandafter\gdef\csname get\firstlettre\suitelettre#1\relax\endcsname{%
+ #2%
+ \nomStyle{#1}%
+ #3}
+\DeclareOption{#1}{\AtBeginDocument{%
+\expandafter\csname get\firstlettre\suitelettre#1\relax\endcsname}}}
+
+
+
+%    \end{macrocode}
+% Les options sont alors déclarées ici. La première est une option gérant
+% l'affichage sur le terminal~; les autres sont des styles. Lors de l'appel
+% d'une option de style, c'est en fait la macro \textit{on-the-fly} correspondante 
+% qui est appelée au début du document~:
+%    \begin{macrocode}
+\DeclareOption{msg}{\@stylemessagetrue}
+\DeclareOption{christelle}{\AtBeginDocument{\getChristelle}}
+\DeclareOption{ellen}{\AtBeginDocument{\getEllen}}
+\DeclareOption{audrey}{\AtBeginDocument{\getAudrey}}
+\DeclareOption{claudia}{\AtBeginDocument{\getClaudia}}
+%    \end{macrocode}
+% Comme la macro |getUndine| réclame deux arguments, on lui fixe 0pt et 2 
+% par défaut~: pas d'indentation du titre, qui remonte de 2 lignes vers 
+% le numéro de chapitre~:
+%    \begin{macrocode}
+\DeclareOption{undine}{\AtBeginDocument{\getUndine{0pt}{2}}}
+\DeclareOption{lisbeth}{\AtBeginDocument{\getLisbeth}}
+
+%    \end{macrocode}
+% Et on termine la chose en chargeant, par défaut, l'option \lestyle{ellen},
+% on traite le tout, et on dit  au revoir.
+%    \begin{macrocode}
+\InputIfFileExists{varchap.cfg}\relax
+
+\ExecuteOptions{ellen}
+\ProcessOptions
+\endinput             
+%%% Fin du fichier varchap.sty
+%</package>
+%    \end{macrocode}
+% \section{Remarques}
+%
+% En vrac~:
+%
+% \begin{enumerate}
+%  \item Les couleurs et rotations ne sont pas visibles dans le \texttt{.dvi}. 
+% Ce n'est pas un bug de \texttt{varchap}, c'est juste que c'est la vie, 
+% et que c'est comme ça. Donc, pour tout voir correctement, passer en \texttt{.ps}
+% ou alors faire directement du \texttt{.pdf}.
+%  \item Les termes de <<~Tampon~>> et de <<~Mise en page~>> utilisés ne me plaisent
+% guère. Toute meilleure proposition sera accueillie avec une joie certaine et non dissimulée.
+%  \item Dans la liste des \textit{To do}, je prévois de créer un fichier \texttt{varchap.cfg}
+% pour pouvoir gérer vos propres styles. Pas dur du tout à faire, mais faut le faire\ldots
+%  \item Toute personne se proposant pour la traduction en Anglais du présent
+% document sera la bienvenue, parce que là, j'ai pas spécialement envie. Ni le temps.
+%  \item Pour toute remarque, question et autres (insultes, menaces\ldots), n'hésitez pas à
+% me courrieller à~:
+%
+% \texttt{sebastien@weblogism.com} 
+%
+% \end{enumerate}
+
+% \Finale \PrintChanges\enlargethispage*{1cm} \PrintIndex

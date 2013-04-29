@@ -1,0 +1,10 @@
+auto
+*.aux
+*.toc
+*.idx
+*.ind
+*.glo
+*.log
+*.pdf
+*.dvi
+*.ps
